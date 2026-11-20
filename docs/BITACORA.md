@@ -18,3 +18,4 @@ Conteo de pruebas (57 en total) después de cada paso. Comandos ejecutados desde
 | 6 · IA fallo 3: `usePlans` deja que la respuesta vieja pise a la nueva | fix(ai): fallo 3 | 0 fallan · 57 pasan | 9 fallan · 48 pasan |
 | 7 · IA fallo 4: `useAgentRun` hace `return` antes de los hooks | fix(ai): fallo 4 | 0 fallan · 57 pasan | 8 fallan · 49 pasan |
 | 8 · IA fallo 5: `useAgentRun` aplica un R2 sin `approve()` | fix(ai): fallo 5 | 0 fallan · 57 pasan | 1 falla · 56 pasan |
+| 9 · IA fallo 6: `useAgentRun` no aborta al desmontar | fix(ai): fallo 6 | 0 fallan · 57 pasan | **0 fallan · 57 pasan** |

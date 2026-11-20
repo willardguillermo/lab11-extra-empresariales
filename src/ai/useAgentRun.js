@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const IDLE = { status: "idle", plan: null, result: null, error: null };
 
@@ -13,6 +13,11 @@ export default function useAgentRun(runAgent) {
     latest.current = next;
     setRun(next);
   };
+
+  // FIX 6: on unmount, abort the run in progress so its late answer never touches the state.
+  useEffect(() => {
+    return () => controller.current?.abort();
+  }, []);
 
   const start = useCallback(
     (plan) => {
