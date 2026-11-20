@@ -12,3 +12,4 @@ Conteo de pruebas (57 en total) después de cada paso. Comandos ejecutados desde
 | 0 · Estado inicial de la plantilla | estado original guardado (tag `ia-original`) | 40 fallan · 17 pasan | 20 fallan · 37 pasan |
 | 1 · Parte 1: `useDebounce` | feat(hooks): useDebounce | 34 fallan · 23 pasan (useDebounce 10/10) | 20 fallan · 37 pasan |
 | 2 · Parte 2: `usePlans` | feat(hooks): usePlans | 18 fallan · 39 pasan (usePlans 12/12) | 20 fallan · 37 pasan |
+| 3 · Parte 3: `useAgentRun` | feat(hooks): useAgentRun | **0 fallan · 57 pasan** (useAgentRun 18/18) | 20 fallan · 37 pasan |

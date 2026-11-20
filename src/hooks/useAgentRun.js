@@ -1,53 +1,77 @@
-// TODO (useAgentRun) — la máquina de estados de la ejecución de un plan.
+import { useCallback, useEffect, useRef, useState } from "react";
+
+const IDLE = { status: "idle", plan: null, result: null, error: null };
+
+// useAgentRun(runAgent) is the state machine of a plan run:
 //
-// Qué debe hacer:
-//   useAgentRun(runAgent) devuelve:
+//   idle ──start(plan)──▶ running ──ok, R1──▶ done
+//                            ├──ok, R2──▶ awaiting_approval ──approve()──▶ done
+//                            └──fails──▶ error
+//   reject() in running or awaiting_approval cancels and goes back to idle.
 //
-//     { status, plan, result, error, start, approve, reject }
-//
-//   Estados de `status`:
-//
-//     idle ──start(plan)──▶ running ──ok, riesgo R1──▶ done
-//                              │
-//                              ├──ok, riesgo R2──▶ awaiting_approval ──approve()──▶ done
-//                              │
-//                              └──falla──▶ error
-//
-//     reject() en running o en awaiting_approval cancela y vuelve a idle.
-//
-//   · runAgent(plan, { signal }) devuelve una promesa del resultado (en la app, `runAgent` de src/lib/api.js).
-//     `plan` tiene el formato de la S10: { id, op, risk, target, plan_hash, proposed_by }.
-//   · start(plan): solo funciona desde idle, done o error. Con una ejecución en curso (running o
-//     awaiting_approval) no hace nada. Pone status "running", guarda `plan` y llama a runAgent con una
-//     AbortSignal propia.
-//   · REGLA DE SEGURIDAD: un plan de riesgo R2 NUNCA va de running a done. Cuando runAgent termina bien,
-//     un R2 pasa a "awaiting_approval" (con `result` ya guardado) y solo approve() lo lleva a done.
-//     Un R1 va directo a done.
-//   · approve(): solo hace algo en awaiting_approval. En cualquier otro estado no cambia nada.
-//   · reject(): en running aborta la señal y descarta lo que llegue después; en awaiting_approval descarta
-//     el resultado. En los dos casos vuelve a idle (plan null, result null). En otros estados no hace nada.
-//   · Si runAgent se rechaza: status "error" y `error` con lo que falló.
-//   · Al DESMONTAR: aborta la ejecución en curso y no toca el estado cuando su promesa termine.
-//   · Hoy `runAgent` puede faltar (undefined) mientras el equipo conecta la app: el hook sigue en idle y
-//     start() no hace nada. Cuando runAgent aparece en un dibujado posterior, el hook funciona.
-//     Ojo: eso no autoriza a saltarse hooks. Las reglas de los hooks no se negocian.
-//
-// Pistas:
-//   · Un solo useState con el objeto { status, plan, result, error } evita estados contradictorios.
-//   · useRef para el AbortController de la ejecución actual y para leer el estado más reciente dentro de
-//     start/approve/reject sin depender de un dibujado.
-//   · Toda respuesta tardía se comprueba con `signal.aborted` antes de tocar el estado.
-//   · Un useEffect sin dependencias ([]) cuya limpieza aborta el controlador: es lo que corre al desmontar.
-//
-// Hoy este hook no hace nada: se queda en "idle". Ejecuta `npm test -- useAgentRun` y mira qué falla.
+// Security rule: an R2 plan NEVER goes from running to done; only approve() applies it.
+// Every hook is called on every render, in the same order, even while runAgent is still missing.
 export default function useAgentRun(runAgent) {
-  return {
-    status: "idle",
-    plan: null,
-    result: null,
-    error: null,
-    start: () => {},
-    approve: () => {},
-    reject: () => {},
-  };
+  const [run, setRun] = useState(IDLE);
+  // The latest state, readable inside start/approve/reject without waiting for a render.
+  const latest = useRef(IDLE);
+  // The AbortController of the current run.
+  const controller = useRef(null);
+
+  const update = useCallback((next) => {
+    latest.current = next;
+    setRun(next);
+  }, []);
+
+  // On unmount: abort the run in progress. Its promise then sees `signal.aborted` and does not touch the state.
+  useEffect(() => {
+    return () => controller.current?.abort();
+  }, []);
+
+  const start = useCallback(
+    (plan) => {
+      if (!runAgent) return; // The app is not connected yet: stay in idle.
+      const { status } = latest.current;
+      if (status === "running" || status === "awaiting_approval") return;
+
+      const current = new AbortController();
+      controller.current = current;
+      update({ status: "running", plan, result: null, error: null });
+
+      let request;
+      try {
+        request = Promise.resolve(runAgent(plan, { signal: current.signal }));
+      } catch (error) {
+        request = Promise.reject(error);
+      }
+
+      request.then(
+        (result) => {
+          if (current.signal.aborted) return;
+          // R2 waits for the person; only R1 is applied directly.
+          const status = plan.risk === "R1" ? "done" : "awaiting_approval";
+          update({ status, plan, result, error: null });
+        },
+        (error) => {
+          if (current.signal.aborted) return;
+          update({ status: "error", plan, result: null, error });
+        }
+      );
+    },
+    [runAgent, update]
+  );
+
+  const approve = useCallback(() => {
+    if (latest.current.status !== "awaiting_approval") return;
+    update({ ...latest.current, status: "done" });
+  }, [update]);
+
+  const reject = useCallback(() => {
+    const { status } = latest.current;
+    if (status !== "running" && status !== "awaiting_approval") return;
+    controller.current?.abort();
+    update(IDLE);
+  }, [update]);
+
+  return { ...run, start, approve, reject };
 }

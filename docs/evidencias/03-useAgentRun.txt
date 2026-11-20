@@ -1,0 +1,27 @@
+
+ RUN  v3.2.7 /Users/nissidev/Proyectos/lab11-extra-empresariales
+
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > empieza en idle, sin plan, resultado ni error, y expone start, approve y reject 6ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > approve() y reject() en idle no hacen nada 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > start(plan) pasa a running y llama a runAgent con el plan y una señal sin abortar 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > al terminar bien va directo a done con el resultado, sin pedir aprobación 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > al terminar bien pasa a awaiting_approval (guarda el resultado) y NO a done 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > solo approve() lo lleva a done, y pasa por todos los estados en orden 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() mientras corre no salta la barrera: al terminar sigue pidiendo aprobación 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > reject() en awaiting_approval descarta el resultado y vuelve a idle 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() dos veces seguidas no vuelve a hacer nada raro 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > reject() mientras corre aborta la señal, vuelve a idle y descarta lo que llegue después 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > si runAgent falla pasa a error, con el error y el plan 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > con una ejecución en curso, start() no lanza otra 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > esperando aprobación tampoco se puede lanzar otra ejecución 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > después de un error se puede volver a empezar con otro plan 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > al desmontar con una ejecución en curso aborta su señal 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > si la respuesta llega después de desmontar, no pasa nada 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > sin runAgent se queda en idle y start() no hace nada 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > si runAgent aparece en un dibujado posterior, el hook no se rompe y funciona 1ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  23:06:44
+   Duration  410ms (transform 18ms, setup 35ms, collect 13ms, tests 14ms, environment 105ms, prepare 30ms)
+
