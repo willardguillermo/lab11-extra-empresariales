@@ -10,3 +10,4 @@ Conteo de pruebas (57 en total) después de cada paso. Comandos ejecutados desde
 | Paso | Commit | `npm test` (src/hooks) | `npm run test:ai` (src/ai) |
 |---|---|---|---|
 | 0 · Estado inicial de la plantilla | estado original guardado (tag `ia-original`) | 40 fallan · 17 pasan | 20 fallan · 37 pasan |
+| 1 · Parte 1: `useDebounce` | feat(hooks): useDebounce | 34 fallan · 23 pasan (useDebounce 10/10) | 20 fallan · 37 pasan |

@@ -1,0 +1,19 @@
+
+ RUN  v3.2.7 /Users/nissidev/Proyectos/lab11-extra-empresariales
+
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > en el primer dibujado devuelve el valor tal cual 5ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > no cambia antes de que pasen delay ms y cambia justo al cumplirse 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > sirve con cualquier tipo de valor (números, objetos) 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > un segundo cambio reinicia la cuenta: el valor intermedio no llega a devolverse 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > tres cambios seguidos devuelven solo el último 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si el valor vuelve al de antes dentro del retardo, nunca se devuelve el intermedio 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si cambia delay se vuelve a contar desde cero con el nuevo retardo 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar justo después de montar no queda ningún temporizador 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar con varios cambios en el aire no queda ningún temporizador vivo 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > tras desmontar, dejar correr el reloj no vuelve a dibujar el hook 0ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  23:06:12
+   Duration  330ms (transform 12ms, setup 30ms, collect 8ms, tests 11ms, environment 94ms, prepare 28ms)
+
