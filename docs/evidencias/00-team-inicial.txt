@@ -1,0 +1,2645 @@
+
+ RUN  v3.2.7 /Users/nissidev/Proyectos/lab11-extra-empresariales
+
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > en el primer dibujado devuelve el valor tal cual 6ms
+ × src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > no cambia antes de que pasen delay ms y cambia justo al cumplirse 3ms
+   → expected 'b' to be 'a' // Object.is equality
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > sirve con cualquier tipo de valor (números, objetos) 1ms
+ × src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > un segundo cambio reinicia la cuenta: el valor intermedio no llega a devolverse 2ms
+   → expected 'c' to be 'a' // Object.is equality
+ × src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > tres cambios seguidos devuelven solo el último 3ms
+   → expected [ 'a', 'b', 'c', 'd' ] to not include 'b'
+ × src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si el valor vuelve al de antes dentro del retardo, nunca se devuelve el intermedio 1ms
+   → expected [ 'a', 'b', 'a' ] to not include 'b'
+ × src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si cambia delay se vuelve a contar desde cero con el nuevo retardo 1ms
+   → expected 'b' to be 'a' // Object.is equality
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar justo después de montar no queda ningún temporizador 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar con varios cambios en el aire no queda ningún temporizador vivo 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > tras desmontar, dejar correr el reloj no vuelve a dibujar el hook 1ms
+ × src/test/usePlans.test.jsx > usePlans · los tres estados > empieza en loading, sin planes ni error, y pide los planes al montar 8ms
+   → expected "spy" to be called 1 times, but got 0 times
+ × src/test/usePlans.test.jsx > usePlans · los tres estados > al llegar los planes pasa a ready con los planes y sin error 2ms
+   → expected 'loading' to be 'ready' // Object.is equality
+ × src/test/usePlans.test.jsx > usePlans · los tres estados > si la petición falla pasa a error, con el error y sin planes 2ms
+   → expected 'loading' to be 'error' // Object.is equality
+ × src/test/usePlans.test.jsx > usePlans · los tres estados > no pide los planes otra vez en cada dibujado 1ms
+   → expected "spy" to be called 1 times, but got 0 times
+ × src/test/usePlans.test.jsx > usePlans · reload > reload() vuelve a loading, pide otra vez y termina en ready con los planes nuevos 1ms
+   → expected "spy" to be called 2 times, but got 0 times
+ × src/test/usePlans.test.jsx > usePlans · reload > después de un error, reload() limpia el error y puede terminar bien 1ms
+   → expected 'loading' to be 'error' // Object.is equality
+ × src/test/usePlans.test.jsx > usePlans · reload > reload mantiene la misma identidad entre dibujados 1ms
+   → expected [Function reload] to be [Function reload] // Object.is equality
+ × src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 3ms
+   → expected [] to deeply equal [ { id: 'T-03', …(5) }, …(1) ]
+ × src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera FALLA tarde, el error viejo no pisa los planes nuevos 1ms
+   → expected 'loading' to be 'ready' // Object.is equality
+ × src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si cambia la función fetchPlans, la respuesta de la anterior se ignora 0ms
+   → expected "spy" to be called 1 times, but got 0 times
+ × src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > con StrictMode (como en desarrollo) el efecto corre dos veces y gana la respuesta de la segunda 1ms
+   → expected "spy" to be called 2 times, but got 0 times
+ ✓ src/test/usePlans.test.jsx > usePlans · desmontar > si la respuesta llega después de desmontar, no pasa nada 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > empieza en idle, sin plan, resultado ni error, y expone start, approve y reject 9ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > approve() y reject() en idle no hacen nada 1ms
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > start(plan) pasa a running y llama a runAgent con el plan y una señal sin abortar 3ms
+   → expected 'idle' to be 'running' // Object.is equality
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > al terminar bien va directo a done con el resultado, sin pedir aprobación 1ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > al terminar bien pasa a awaiting_approval (guarda el resultado) y NO a done 1ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > solo approve() lo lleva a done, y pasa por todos los estados en orden 1ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() mientras corre no salta la barrera: al terminar sigue pidiendo aprobación 0ms
+   → expected 'idle' to be 'running' // Object.is equality
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > reject() en awaiting_approval descarta el resultado y vuelve a idle 0ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() dos veces seguidas no vuelve a hacer nada raro 0ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > reject() mientras corre aborta la señal, vuelve a idle y descarta lo que llegue después 0ms
+   → Cannot read properties of undefined (reading '1')
+ × src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > si runAgent falla pasa a error, con el error y el plan 1ms
+   → Cannot read properties of undefined (reading 'reject')
+ × src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > con una ejecución en curso, start() no lanza otra 0ms
+   → expected "spy" to be called 1 times, but got 0 times
+ × src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > esperando aprobación tampoco se puede lanzar otra ejecución 0ms
+   → Cannot read properties of undefined (reading 'resolve')
+ × src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > después de un error se puede volver a empezar con otro plan 0ms
+   → Cannot read properties of undefined (reading 'reject')
+ × src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > al desmontar con una ejecución en curso aborta su señal 0ms
+   → Cannot read properties of undefined (reading '1')
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > si la respuesta llega después de desmontar, no pasa nada 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > sin runAgent se queda en idle y start() no hace nada 0ms
+ × src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > si runAgent aparece en un dibujado posterior, el hook no se rompe y funciona 1ms
+   → expected 'idle' to be 'running' // Object.is equality
+ ✓ src/test/App.test.jsx > App · prueba de humo con los datos reales > los datos tienen el formato del plan de la semana 8 2ms
+ ✓ src/test/App.test.jsx > App · prueba de humo con los datos reales > la cabecera solo necesita un número: se dibuja sin la lista de planes 33ms
+ × src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > muestra el esqueleto mientras carga y los planes cuando llegan 10ms
+   → [2mexpect([22m[31melement[39m[2m).not.toBeInTheDocument()[22m
+
+[31mexpected document not to contain element, found <div
+  aria-label="Cargando planes"
+  class="skeleton"
+  role="status"
+>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+</div> instead[39m
+ × src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > si la red falla muestra el error y Reintentar vuelve a cargar 15ms
+   → Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ × src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > al decidir un plan, el contador de la cabecera baja 6ms
+   → [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  Pendientes: 4[39m
+Received:
+[31m  Pendientes: …[39m
+ × src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > rechazar también cuenta, y las decisiones sobreviven a recargar la página 8ms
+   → Unable to find an accessible element with the role "article" and name "Plan T-04"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ × src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > un plan aprobado aparece en el panel de ejecución del agente 6ms
+   → Unable to find an accessible element with the role "article" and name "Plan T-02"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > separa pendientes y decididos según decisions 41ms
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > aprobar un plan R1 avisa al padre con onDecide(id, 'approved') 19ms
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > aprobar un plan R2 exige el hash exacto 55ms
+ × src/test/Inbox.test.jsx > Inbox · el buscador usa useDebounce > el campo muestra lo escrito al instante, pero la lista espera 300 ms 9ms
+   → expected [ 'T-02' ] to deeply equal [ 'T-01', 'T-02', 'T-03', 'T-04' ]
+ ✓ src/test/Inbox.test.jsx > Inbox · el buscador usa useDebounce > sin coincidencias muestra el estado vacío y Limpiar búsqueda devuelve la lista 9ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > sin planes aprobados no hay nada que ejecutar 4ms
+ × src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R1 aprobado se ejecuta y termina aplicado, sin confirmación extra 11ms
+   → Unable to find an element with the text: Ejecutando T-02…. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ × src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R2 aprobado espera una última confirmación antes de aplicarse 9ms
+   → Unable to find an element with the text: /Falta tu confirmación/. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ × src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > Descartar vuelve al reposo sin aplicar nada 13ms
+   → Unable to find an accessible element with the role "button" and name "Descartar"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "Ejecución del agente":
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------list:
+
+  Name "":
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+  code:
+
+  Name "":
+  [36m<code />[39m
+
+  Name "":
+  [36m<code />[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Ejecutar T-01":
+  [36m<button[39m
+    [33maria-label[39m=[32m"Ejecutar T-01"[39m
+    [33mclass[39m=[32m"btn btn-ghost"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Ejecutar T-02":
+  [36m<button[39m
+    [33maria-label[39m=[32m"Ejecutar T-02"[39m
+    [33mclass[39m=[32m"btn btn-ghost"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------status:
+
+  Name "Estado de la ejecución":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ × src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > si el agente falla, lo dice 10ms
+   → Unable to find an element with the text: Falló T-02: pasarela caída. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > muestra el esqueleto mientras carga y los planes cuando llegan
+Error: [2mexpect([22m[31melement[39m[2m).not.toBeInTheDocument()[22m
+
+[31mexpected document not to contain element, found <div
+  aria-label="Cargando planes"
+  class="skeleton"
+  role="status"
+>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+  <div
+    aria-hidden="true"
+    class="skeleton-card"
+  >
+    <span
+      class="skeleton-line skeleton-title"
+    />
+    <span
+      class="skeleton-line"
+    />
+    <span
+      class="skeleton-line skeleton-short"
+    />
+  </div>
+</div> instead[39m
+ ❯ src/test/App.test.jsx:41:75
+     39| 
+     40|     await act(async () => request.resolve(makePlans()));
+     41|     expect(screen.queryByRole("status", { name: "Cargando planes" })).…
+       |                                                                           ^
+     42|     expect(cards()).toHaveLength(4);
+     43|     expect(counter()).toHaveTextContent("Pendientes: 4");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/40]⎯
+
+ FAIL  src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > si la red falla muestra el error y Reintentar vuelve a cargar
+TestingLibraryElementError: Unable to find an accessible element with the role "alert"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/App.test.jsx:54:19
+     52| 
+     53|     await act(async () => first.reject(new Error("Sin conexión con la …
+     54|     expect(screen.getByRole("alert")).toHaveTextContent("Sin conexión …
+       |                   ^
+     55|     expect(screen.queryByRole("status", { name: "Cargando planes" })).…
+     56| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/40]⎯
+
+ FAIL  src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > al decidir un plan, el contador de la cabecera baja
+Error: [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  Pendientes: 4[39m
+Received:
+[31m  Pendientes: …[39m
+ ❯ src/test/App.test.jsx:79:23
+     77|     const user = userEvent.setup();
+     78|     const { fetchPlans } = await renderReady();
+     79|     expect(counter()).toHaveTextContent("Pendientes: 4");
+       |                       ^
+     80| 
+     81|     const card = screen.getByRole("article", { name: "Plan T-02" });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/40]⎯
+
+ FAIL  src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > rechazar también cuenta, y las decisiones sobreviven a recargar la página
+TestingLibraryElementError: Unable to find an accessible element with the role "article" and name "Plan T-04"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/App.test.jsx:92:36
+     90|     const user = userEvent.setup();
+     91|     const first = await renderReady();
+     92|     await user.click(within(screen.getByRole("article", { name: "Plan …
+       |                                    ^
+     93|     expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY))).toEqu…
+     94|     first.unmount();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/40]⎯
+
+ FAIL  src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > un plan aprobado aparece en el panel de ejecución del agente
+TestingLibraryElementError: Unable to find an accessible element with the role "article" and name "Plan T-02"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"app"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"app-header"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Los hooks del agente":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "Contador de pendientes":
+  [36m<p[39m
+    [33maria-label[39m=[32m"Contador de pendientes"[39m
+    [33mclass[39m=[32m"pending-counter"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  Name "Cargando planes":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Cargando planes"[39m
+    [33mclass[39m=[32m"skeleton"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"note"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Simular fallo de red":
+  [36m<input[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Recargar planes":
+  [36m<button[39m
+    [33mclass[39m=[32m"reload-link"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"app-header"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"app-header-top"[39m
+        [36m>[39m
+          [36m<h1>[39m
+            [0mLos hooks del agente[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33maria-label[39m=[32m"Contador de pendientes"[39m
+            [33mclass[39m=[32m"pending-counter"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m>[39m
+            [0mPendientes: [0m
+            [0m…[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<p>[39m
+          [0mUn agente de IA propone planes y una persona decide. Lo destructivo (R2) no se aprueba con un clic: hay que escribir el hash del plan, y ni siquiera un plan aprobado se aplica sin una última confirmación.[0m
+        [36m</p>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"note"[39m
+        [36m>[39m
+          [0mTodo es local: la red es simulada (src/lib/api.js). El límite de verdad lo impone el servidor (semana 8); aquí solo ayudamos a la persona a decidir bien.[0m
+        [36m</p>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"toolbar"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"network-toggle"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mSimular fallo de red[0m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"reload-link"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRecargar planes[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"Cargando planes"[39m
+        [33mclass[39m=[32m"skeleton"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"skeleton-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-title"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line"[39m
+          [36m/>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"skeleton-line skeleton-short"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/App.test.jsx:104:36
+    102|     const user = userEvent.setup();
+    103|     await renderReady();
+    104|     await user.click(within(screen.getByRole("article", { name: "Plan …
+       |                                    ^
+    105|     expect(screen.getByRole("button", { name: "Ejecutar T-02" })).toBe…
+    106|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/40]⎯
+
+ FAIL  src/test/Inbox.test.jsx > Inbox · el buscador usa useDebounce > el campo muestra lo escrito al instante, pero la lista espera 300 ms
+AssertionError: expected [ 'T-02' ] to deeply equal [ 'T-01', 'T-02', 'T-03', 'T-04' ]
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[32m-   "T-01",[39m
+[2m    "T-02",[22m
+[32m-   "T-03",[39m
+[32m-   "T-04",[39m
+[2m  ][22m
+
+ ❯ src/test/Inbox.test.jsx:63:26
+     61|     fireEvent.change(searchBox(), { target: { value: "values" } });
+     62|     expect(searchBox()).toHaveValue("values");
+     63|     expect(pendingIds()).toEqual(["T-01", "T-02", "T-03", "T-04"]);
+       |                          ^
+     64| 
+     65|     act(() => vi.advanceTimersByTime(299));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/40]⎯
+
+ FAIL  src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R1 aprobado se ejecuta y termina aplicado, sin confirmación extra
+TestingLibraryElementError: Unable to find an element with the text: Ejecutando T-02…. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/Inbox.test.jsx:100:32
+     98| 
+     99|     await user.click(within(runRegion()).getByRole("button", { name: "…
+    100|     expect(within(runRegion()).getByText("Ejecutando T-02…")).toBeInTh…
+       |                                ^
+    101|     expect(within(runRegion()).getByRole("button", { name: "Ejecutar T…
+    102| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/40]⎯
+
+ FAIL  src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R2 aprobado espera una última confirmación antes de aplicarse
+TestingLibraryElementError: Unable to find an element with the text: /Falta tu confirmación/. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/Inbox.test.jsx:115:32
+    113|     await act(async () => request.resolve({ summary: "ensayo" }));
+    114| 
+    115|     expect(within(runRegion()).getByText(/Falta tu confirmación/)).toB…
+       |                                ^
+    116|     expect(within(runRegion()).queryByText(/T-01 aplicado/)).not.toBeI…
+    117| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/40]⎯
+
+ FAIL  src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > Descartar vuelve al reposo sin aplicar nada
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Descartar"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "Ejecución del agente":
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m/>[39m
+
+  --------------------------------------------------list:
+
+  Name "":
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<li />[39m
+
+  Name "":
+  [36m<li />[39m
+
+  --------------------------------------------------
+  code:
+
+  Name "":
+  [36m<code />[39m
+
+  Name "":
+  [36m<code />[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Ejecutar T-01":
+  [36m<button[39m
+    [33maria-label[39m=[32m"Ejecutar T-01"[39m
+    [33mclass[39m=[32m"btn btn-ghost"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Ejecutar T-02":
+  [36m<button[39m
+    [33maria-label[39m=[32m"Ejecutar T-02"[39m
+    [33mclass[39m=[32m"btn btn-ghost"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------status:
+
+  Name "Estado de la ejecución":
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/Inbox.test.jsx:129:42
+    127|     await user.click(within(runRegion()).getByRole("button", { name: "…
+    128|     await act(async () => request.resolve({ summary: "ensayo" }));
+    129|     await user.click(within(runRegion()).getByRole("button", { name: "…
+       |                                          ^
+    130| 
+    131|     expect(within(runRegion()).getByText("Sin ejecución en curso.")).t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/40]⎯
+
+ FAIL  src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > si el agente falla, lo dice
+TestingLibraryElementError: Unable to find an element with the text: Falló T-02: pasarela caída. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-labelledby[39m=[32m"run-title"[39m
+[36m>[39m
+  [36m<h3[39m
+    [33mid[39m=[32m"run-title"[39m
+  [36m>[39m
+    [0mEjecución del agente[0m
+  [36m</h3>[39m
+  [36m<ul[39m
+    [33mclass[39m=[32m"run-list"[39m
+  [36m>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-01[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mexams_destroy[0m
+        [0m · [0m
+        [0mExamen de ORM[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-01"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+    [36m<li>[39m
+      [36m<span>[39m
+        [36m<code>[39m
+          [0mT-02[0m
+        [36m</code>[39m
+        [0m · [0m
+        [0mquestions_create[0m
+        [0m · [0m
+        [0m¿Qué hace values_list()?[0m
+      [36m</span>[39m
+      [36m<button[39m
+        [33maria-label[39m=[32m"Ejecutar T-02"[39m
+        [33mclass[39m=[32m"btn btn-ghost"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mEjecutar[0m
+      [36m</button>[39m
+    [36m</li>[39m
+  [36m</ul>[39m
+  [36m<div[39m
+    [33maria-label[39m=[32m"Estado de la ejecución"[39m
+    [33mclass[39m=[32m"run-status run-idle"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m>[39m
+    [36m<p>[39m
+      [0mSin ejecución en curso.[0m
+    [36m</p>[39m
+  [36m</div>[39m
+[36m</section>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/test/Inbox.test.jsx:142:32
+    140|     await user.click(within(runRegion()).getByRole("button", { name: "…
+    141|     await act(async () => request.reject(new Error("pasarela caída")));
+    142|     expect(within(runRegion()).getByText("Falló T-02: pasarela caída")…
+       |                                ^
+    143|   });
+    144| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > start(plan) pasa a running y llama a runAgent con el plan y una señal sin abortar
+AssertionError: expected 'idle' to be 'running' // Object.is equality
+
+Expected: [32m"running"[39m
+Received: [31m"idle"[39m
+
+ ❯ src/test/useAgentRun.test.jsx:65:35
+     63|     act(() => result.current.start(R1));
+     64| 
+     65|     expect(result.current.status).toBe("running");
+       |                                   ^
+     66|     expect(result.current.plan).toBe(R1);
+     67|     expect(runAgent).toHaveBeenCalledTimes(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > al terminar bien va directo a done con el resultado, sin pedir aprobación
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:78:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > al terminar bien pasa a awaiting_approval (guarda el resultado) y NO a done
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:91:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > solo approve() lo lleva a done, y pasa por todos los estados en orden
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:103:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() mientras corre no salta la barrera: al terminar sigue pidiendo aprobación
+AssertionError: expected 'idle' to be 'running' // Object.is equality
+
+Expected: [32m"running"[39m
+Received: [31m"idle"[39m
+
+ ❯ src/test/useAgentRun.test.jsx:116:35
+    114|     act(() => result.current.start(R2));
+    115|     act(() => result.current.approve()); // demasiado pronto
+    116|     expect(result.current.status).toBe("running");
+       |                                   ^
+    117| 
+    118|     await finish(requests[0], { summary: "ensayo" });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > reject() en awaiting_approval descarta el resultado y vuelve a idle
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:127:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() dos veces seguidas no vuelve a hacer nada raro
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:137:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > reject() mientras corre aborta la señal, vuelve a idle y descarta lo que llegue después
+TypeError: Cannot read properties of undefined (reading '1')
+ ❯ src/test/useAgentRun.test.jsx:149:45
+    147|     const { result } = setup(runAgent);
+    148|     act(() => result.current.start(R1));
+    149|     const { signal } = runAgent.mock.calls[0][1];
+       |                                             ^
+    150| 
+    151|     act(() => result.current.reject());
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > si runAgent falla pasa a error, con el error y el plan
+TypeError: Cannot read properties of undefined (reading 'reject')
+ ❯ src/test/useAgentRun.test.jsx:14:13
+     12| const fail = (request, error) =>
+     13|   act(async () => {
+     14|     request.reject(error);
+       |             ^
+     15|   });
+     16| 
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ fail src/test/useAgentRun.test.jsx:13:3
+ ❯ src/test/useAgentRun.test.jsx:164:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > con una ejecución en curso, start() no lanza otra
+AssertionError: expected "spy" to be called 1 times, but got 0 times
+ ❯ src/test/useAgentRun.test.jsx:176:22
+    174|     act(() => result.current.start(R1));
+    175|     act(() => result.current.start(OTHER_R2));
+    176|     expect(runAgent).toHaveBeenCalledTimes(1);
+       |                      ^
+    177|     expect(result.current.plan).toBe(R1);
+    178| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > esperando aprobación tampoco se puede lanzar otra ejecución
+TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+      8| const finish = (request, value) =>
+      9|   act(async () => {
+     10|     request.resolve(value);
+       |             ^
+     11|   });
+     12| const fail = (request, error) =>
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:188:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > después de un error se puede volver a empezar con otro plan
+TypeError: Cannot read properties of undefined (reading 'reject')
+ ❯ src/test/useAgentRun.test.jsx:14:13
+     12| const fail = (request, error) =>
+     13|   act(async () => {
+     14|     request.reject(error);
+       |             ^
+     15|   });
+     16| 
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ fail src/test/useAgentRun.test.jsx:13:3
+ ❯ src/test/useAgentRun.test.jsx:198:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > al desmontar con una ejecución en curso aborta su señal
+TypeError: Cannot read properties of undefined (reading '1')
+ ❯ src/test/useAgentRun.test.jsx:211:45
+    209|     const { result, unmount } = setup(runAgent);
+    210|     act(() => result.current.start(R1));
+    211|     const { signal } = runAgent.mock.calls[0][1];
+       |                                             ^
+    212|     expect(signal.aborted).toBe(false);
+    213| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/40]⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > si runAgent aparece en un dibujado posterior, el hook no se rompe y funciona
+AssertionError: expected 'idle' to be 'running' // Object.is equality
+
+Expected: [32m"running"[39m
+Received: [31m"idle"[39m
+
+ ❯ src/test/useAgentRun.test.jsx:244:35
+    242| 
+    243|     act(() => result.current.start(R1));
+    244|     expect(result.current.status).toBe("running");
+       |                                   ^
+    245|     await finish(requests[0], { summary: "listo" });
+    246|     expect(result.current.status).toBe("done");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/40]⎯
+
+ FAIL  src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > no cambia antes de que pasen delay ms y cambia justo al cumplirse
+AssertionError: expected 'b' to be 'a' // Object.is equality
+
+Expected: [32m"a"[39m
+Received: [31m"b"[39m
+
+ ❯ src/test/useDebounce.test.jsx:42:28
+     40|     const { result, rerender } = setup("a", 300);
+     41|     rerender({ value: "b", delay: 300 });
+     42|     expect(result.current).toBe("a");
+       |                            ^
+     43| 
+     44|     tick(299);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/40]⎯
+
+ FAIL  src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > un segundo cambio reinicia la cuenta: el valor intermedio no llega a devolverse
+AssertionError: expected 'c' to be 'a' // Object.is equality
+
+Expected: [32m"a"[39m
+Received: [31m"c"[39m
+
+ ❯ src/test/useDebounce.test.jsx:72:28
+     70| 
+     71|     tick(299);
+     72|     expect(result.current).toBe("a"); // desde el cambio a "c" solo ha…
+       |                            ^
+     73| 
+     74|     tick(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/40]⎯
+
+ FAIL  src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > tres cambios seguidos devuelven solo el último
+AssertionError: expected [ 'a', 'b', 'c', 'd' ] to not include 'b'
+ ❯ src/test/useDebounce.test.jsx:87:22
+     85|     tick(200);
+     86|     expect(result.current).toBe("d");
+     87|     expect(seen).not.toContain("b");
+       |                      ^
+     88|     expect(seen).not.toContain("c");
+     89|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/40]⎯
+
+ FAIL  src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si el valor vuelve al de antes dentro del retardo, nunca se devuelve el intermedio
+AssertionError: expected [ 'a', 'b', 'a' ] to not include 'b'
+ ❯ src/test/useDebounce.test.jsx:98:22
+     96|     for (let ms = 0; ms < 1000; ms += 50) tick(50); // paso a paso: ca…
+     97|     expect(result.current).toBe("a");
+     98|     expect(seen).not.toContain("b");
+       |                      ^
+     99|   });
+    100| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/40]⎯
+
+ FAIL  src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si cambia delay se vuelve a contar desde cero con el nuevo retardo
+AssertionError: expected 'b' to be 'a' // Object.is equality
+
+Expected: [32m"a"[39m
+Received: [31m"b"[39m
+
+ ❯ src/test/useDebounce.test.jsx:108:28
+    106| 
+    107|     tick(499);
+    108|     expect(result.current).toBe("a");
+       |                            ^
+    109| 
+    110|     tick(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · los tres estados > empieza en loading, sin planes ni error, y pide los planes al montar
+AssertionError: expected "spy" to be called 1 times, but got 0 times
+ ❯ src/test/usePlans.test.jsx:33:24
+     31|     const { result } = renderHook(() => usePlans(fetchPlans));
+     32| 
+     33|     expect(fetchPlans).toHaveBeenCalledTimes(1);
+       |                        ^
+     34|     expect(result.current.status).toBe("loading");
+     35|     expect(result.current.plans).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · los tres estados > al llegar los planes pasa a ready con los planes y sin error
+AssertionError: expected 'loading' to be 'ready' // Object.is equality
+
+Expected: [32m"ready"[39m
+Received: [31m"loading"[39m
+
+ ❯ src/test/usePlans.test.jsx:46:35
+     44|     await resolveWith(request, plansA);
+     45| 
+     46|     expect(result.current.status).toBe("ready");
+       |                                   ^
+     47|     expect(result.current.plans).toEqual(plansA);
+     48|     expect(result.current.error).toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · los tres estados > si la petición falla pasa a error, con el error y sin planes
+AssertionError: expected 'loading' to be 'error' // Object.is equality
+
+Expected: [32m"error"[39m
+Received: [31m"loading"[39m
+
+ ❯ src/test/usePlans.test.jsx:58:35
+     56|     await rejectWith(request, failure);
+     57| 
+     58|     expect(result.current.status).toBe("error");
+       |                                   ^
+     59|     expect(result.current.error).toBe(failure);
+     60|     expect(result.current.plans).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · los tres estados > no pide los planes otra vez en cada dibujado
+AssertionError: expected "spy" to be called 1 times, but got 0 times
+ ❯ src/test/usePlans.test.jsx:70:24
+     68|     rerender();
+     69|     rerender();
+     70|     expect(fetchPlans).toHaveBeenCalledTimes(1);
+       |                        ^
+     71|   });
+     72| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · reload > reload() vuelve a loading, pide otra vez y termina en ready con los planes nuevos
+AssertionError: expected "spy" to be called 2 times, but got 0 times
+ ❯ src/test/usePlans.test.jsx:83:24
+     81| 
+     82|     act(() => result.current.reload());
+     83|     expect(fetchPlans).toHaveBeenCalledTimes(2);
+       |                        ^
+     84|     expect(result.current.status).toBe("loading");
+     85|     expect(result.current.plans).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · reload > después de un error, reload() limpia el error y puede terminar bien
+AssertionError: expected 'loading' to be 'error' // Object.is equality
+
+Expected: [32m"error"[39m
+Received: [31m"loading"[39m
+
+ ❯ src/test/usePlans.test.jsx:98:35
+     96|     const { result } = renderHook(() => usePlans(fetchPlans));
+     97|     await rejectWith(first, new Error("Sin conexión"));
+     98|     expect(result.current.status).toBe("error");
+       |                                   ^
+     99| 
+    100|     act(() => result.current.reload());
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · reload > reload mantiene la misma identidad entre dibujados
+AssertionError: expected [Function reload] to be [Function reload] // Object.is equality
+
+[2mCompared values have no visual difference.[22m
+
+ ❯ src/test/usePlans.test.jsx:115:35
+    113|     const firstReload = result.current.reload;
+    114|     rerender();
+    115|     expect(result.current.reload).toBe(firstReload);
+       |                                   ^
+    116|   });
+    117| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva
+AssertionError: expected [] to deeply equal [ { id: 'T-03', …(5) }, …(1) ]
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [[39m
+[32m-   {[39m
+[32m-     "id": "T-03",[39m
+[32m-     "op": "questions_destroy",[39m
+[32m-     "plan_hash": "112233445566",[39m
+[32m-     "proposed_by": "agente",[39m
+[32m-     "risk": "R2",[39m
+[32m-     "target": {[39m
+[32m-       "id": 7,[39m
+[32m-       "text": "¿Qué es el contexto de una plantilla?",[39m
+[32m-     },[39m
+[32m-   },[39m
+[32m-   {[39m
+[32m-     "id": "T-04",[39m
+[32m-     "op": "questions_create",[39m
+[32m-     "plan_hash": "99aabbccddee",[39m
+[32m-     "proposed_by": "agente",[39m
+[32m-     "risk": "R1",[39m
+[32m-     "target": {[39m
+[32m-       "exam": 2,[39m
+[32m-       "text": "¿Para qué sirve csrf_token?",[39m
+[32m-     },[39m
+[32m-   },[39m
+[32m- ][39m
+[31m+ [][39m
+
+ ❯ src/test/usePlans.test.jsx:128:34
+    126|     act(() => result.current.reload()); // la primera petición sigue e…
+    127|     await resolveWith(second, plansB);
+    128|     expect(result.current.plans).toEqual(plansB);
+       |                                  ^
+    129| 
+    130|     await resolveWith(first, plansA); // llega tarde
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera FALLA tarde, el error viejo no pisa los planes nuevos
+AssertionError: expected 'loading' to be 'ready' // Object.is equality
+
+Expected: [32m"ready"[39m
+Received: [31m"loading"[39m
+
+ ❯ src/test/usePlans.test.jsx:145:35
+    143|     await rejectWith(first, new Error("Tarde y roto"));
+    144| 
+    145|     expect(result.current.status).toBe("ready");
+       |                                   ^
+    146|     expect(result.current.plans).toEqual(plansB);
+    147|     expect(result.current.error).toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si cambia la función fetchPlans, la respuesta de la anterior se ignora
+AssertionError: expected "spy" to be called 1 times, but got 0 times
+ ❯ src/test/usePlans.test.jsx:160:22
+    158| 
+    159|     rerender({ fetchPlans: newFetch });
+    160|     expect(newFetch).toHaveBeenCalledTimes(1);
+       |                      ^
+    161|     await resolveWith(fresh, plansB);
+    162|     await resolveWith(old, plansA);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/40]⎯
+
+ FAIL  src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > con StrictMode (como en desarrollo) el efecto corre dos veces y gana la respuesta de la segunda
+AssertionError: expected "spy" to be called 2 times, but got 0 times
+ ❯ src/test/usePlans.test.jsx:172:24
+    170|     const fetchPlans = fakeFetch(first, second);
+    171|     const { result } = renderHook(() => usePlans(fetchPlans), { wrappe…
+    172|     expect(fetchPlans).toHaveBeenCalledTimes(2);
+       |                        ^
+    173| 
+    174|     await resolveWith(second, plansB);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/40]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 6 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Sin conexión
+ ❯ src/test/usePlans.test.jsx:55:21
+     53|     const fetchPlans = fakeFetch(request);
+     54|     const { result } = renderHook(() => usePlans(fetchPlans));
+     55|     const failure = new Error("Sin conexión");
+       |                     ^
+     56|     await rejectWith(request, failure);
+     57| 
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+ ❯ runWithTimeout node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10
+ ❯ runTest node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12
+ ❯ runSuite node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8
+ ❯ runSuite node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8
+ ❯ runFiles node_modules/@vitest/runner/dist/chunk-hooks.js:1787:3
+
+This error originated in "src/test/usePlans.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "si la petición falla pasa a error, con el error y sin planes". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Sin conexión
+ ❯ src/test/usePlans.test.jsx:97:29
+     95|     const fetchPlans = fakeFetch(first, second);
+     96|     const { result } = renderHook(() => usePlans(fetchPlans));
+     97|     await rejectWith(first, new Error("Sin conexión"));
+       |                             ^
+     98|     expect(result.current.status).toBe("error");
+     99| 
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+ ❯ runWithTimeout node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10
+ ❯ runTest node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12
+ ❯ runSuite node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8
+ ❯ runSuite node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8
+ ❯ runFiles node_modules/@vitest/runner/dist/chunk-hooks.js:1787:3
+
+This error originated in "src/test/usePlans.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "después de un error, reload() limpia el error y puede terminar bien". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Tarde y roto
+ ❯ src/test/usePlans.test.jsx:143:29
+    141|     act(() => result.current.reload());
+    142|     await resolveWith(second, plansB);
+    143|     await rejectWith(first, new Error("Tarde y roto"));
+       |                             ^
+    144| 
+    145|     expect(result.current.status).toBe("ready");
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+
+This error originated in "src/test/usePlans.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "si la primera FALLA tarde, el error viejo no pisa los planes nuevos". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+AssertionError: promise rejected "TypeError: Cannot read properties of unde…" instead of resolving
+ ❯ Assertion.__VITEST_RESOLVES__ node_modules/@vitest/expect/dist/index.js:1577:17
+ ❯ Assertion.propertyGetter node_modules/chai/index.js:1557:27
+ ❯ Object.proxyGetter [as get] node_modules/chai/index.js:1645:22
+ ❯ src/test/useAgentRun.test.jsx:223:59
+    221|     act(() => result.current.start(R2));
+    222|     unmount();
+    223|     await expect(finish(requests[0], { summary: "tarde" })).resolves.n…
+       |                                                           ^
+    224|   });
+    225| });
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+ ❯ runWithTimeout node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10
+
+This error originated in "src/test/useAgentRun.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+Caused by: TypeError: Cannot read properties of undefined (reading 'resolve')
+ ❯ src/test/useAgentRun.test.jsx:10:13
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ finish src/test/useAgentRun.test.jsx:9:3
+ ❯ src/test/useAgentRun.test.jsx:223:18
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: Sin conexión con la pasarela
+ ❯ src/test/App.test.jsx:53:40
+     51|     render(<App fetchPlans={fetchPlans} runAgent={vi.fn()} />);
+     52| 
+     53|     await act(async () => first.reject(new Error("Sin conexión con la …
+       |                                        ^
+     54|     expect(screen.getByRole("alert")).toHaveTextContent("Sin conexión …
+     55|     expect(screen.queryByRole("status", { name: "Cargando planes" })).…
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ src/test/App.test.jsx:53:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+ ❯ runWithTimeout node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10
+
+This error originated in "src/test/App.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "si la red falla muestra el error y Reintentar vuelve a cargar". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: pasarela caída
+ ❯ src/test/Inbox.test.jsx:141:42
+    139| 
+    140|     await user.click(within(runRegion()).getByRole("button", { name: "…
+    141|     await act(async () => request.reject(new Error("pasarela caída")));
+       |                                          ^
+    142|     expect(within(runRegion()).getByText("Falló T-02: pasarela caída")…
+    143|   });
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:47:24
+ ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:890:22
+ ❯ node_modules/@testing-library/react/dist/act-compat.js:46:25
+ ❯ src/test/Inbox.test.jsx:141:11
+ ❯ node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+
+This error originated in "src/test/Inbox.test.jsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "si el agente falla, lo dice". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  5 failed (5)
+      Tests  40 failed | 17 passed (57)
+     Errors  6 errors
+   Start at  23:05:51
+   Duration  638ms (transform 102ms, setup 328ms, collect 205ms, tests 321ms, environment 649ms, prepare 157ms)
+
