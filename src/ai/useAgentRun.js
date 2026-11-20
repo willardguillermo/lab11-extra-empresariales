@@ -27,7 +27,9 @@ export default function useAgentRun(runAgent) {
       runAgent(plan, { signal: current.signal }).then(
         (result) => {
           if (current.signal.aborted) return;
-          update({ status: "done", plan, result, error: null });
+          // FIX 5: an R2 plan never goes from running to done; it waits for approve().
+          const status = plan.risk === "R1" ? "done" : "awaiting_approval";
+          update({ status, plan, result, error: null });
         },
         (error) => {
           if (current.signal.aborted) return;

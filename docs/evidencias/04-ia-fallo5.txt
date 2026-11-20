@@ -1,0 +1,89 @@
+
+ RUN  v3.2.7 /Users/nissidev/Proyectos/lab11-extra-empresariales
+
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > en el primer dibujado devuelve el valor tal cual 5ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > no cambia antes de que pasen delay ms y cambia justo al cumplirse 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · el valor tranquilo > sirve con cualquier tipo de valor (números, objetos) 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > un segundo cambio reinicia la cuenta: el valor intermedio no llega a devolverse 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > tres cambios seguidos devuelven solo el último 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si el valor vuelve al de antes dentro del retardo, nunca se devuelve el intermedio 1ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · cada cambio cancela el temporizador anterior > si cambia delay se vuelve a contar desde cero con el nuevo retardo 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar justo después de montar no queda ningún temporizador 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > al desmontar con varios cambios en el aire no queda ningún temporizador vivo 0ms
+ ✓ src/test/useDebounce.test.jsx > useDebounce · limpieza al desmontar > tras desmontar, dejar correr el reloj no vuelve a dibujar el hook 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > empieza en loading, sin planes ni error, y pide los planes al montar 6ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > al llegar los planes pasa a ready con los planes y sin error 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > si la petición falla pasa a error, con el error y sin planes 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > no pide los planes otra vez en cada dibujado 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > reload() vuelve a loading, pide otra vez y termina en ready con los planes nuevos 2ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > después de un error, reload() limpia el error y puede terminar bien 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > reload mantiene la misma identidad entre dibujados 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera FALLA tarde, el error viejo no pisa los planes nuevos 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si cambia la función fetchPlans, la respuesta de la anterior se ignora 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > con StrictMode (como en desarrollo) el efecto corre dos veces y gana la respuesta de la segunda 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · desmontar > si la respuesta llega después de desmontar, no pasa nada 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > empieza en idle, sin plan, resultado ni error, y expone start, approve y reject 6ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · punto de partida > approve() y reject() en idle no hacen nada 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > start(plan) pasa a running y llama a runAgent con el plan y una señal sin abortar 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R1 > al terminar bien va directo a done con el resultado, sin pedir aprobación 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > al terminar bien pasa a awaiting_approval (guarda el resultado) y NO a done 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > solo approve() lo lleva a done, y pasa por todos los estados en orden 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() mientras corre no salta la barrera: al terminar sigue pidiendo aprobación 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > reject() en awaiting_approval descarta el resultado y vuelve a idle 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · un plan R2 no se aplica sin aprobación > approve() dos veces seguidas no vuelve a hacer nada raro 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > reject() mientras corre aborta la señal, vuelve a idle y descarta lo que llegue después 1ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > si runAgent falla pasa a error, con el error y el plan 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > con una ejecución en curso, start() no lanza otra 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > esperando aprobación tampoco se puede lanzar otra ejecución 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · cancelar, fallar y reintentar > después de un error se puede volver a empezar con otro plan 0ms
+ × src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > al desmontar con una ejecución en curso aborta su señal 3ms
+   → expected false to be true // Object.is equality
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > si la respuesta llega después de desmontar, no pasa nada 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > sin runAgent se queda en idle y start() no hace nada 0ms
+ ✓ src/test/useAgentRun.test.jsx > useAgentRun · las reglas de los hooks > si runAgent aparece en un dibujado posterior, el hook no se rompe y funciona 1ms
+ ✓ src/test/App.test.jsx > App · prueba de humo con los datos reales > los datos tienen el formato del plan de la semana 8 1ms
+ ✓ src/test/App.test.jsx > App · prueba de humo con los datos reales > la cabecera solo necesita un número: se dibuja sin la lista de planes 28ms
+ ✓ src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > muestra el esqueleto mientras carga y los planes cuando llegan 13ms
+ ✓ src/test/App.test.jsx > App · carga con usePlans (cargando, datos y error) > si la red falla muestra el error y Reintentar vuelve a cargar 27ms
+ ✓ src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > al decidir un plan, el contador de la cabecera baja 16ms
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > separa pendientes y decididos según decisions 43ms
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > aprobar un plan R1 avisa al padre con onDecide(id, 'approved') 22ms
+ ✓ src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > rechazar también cuenta, y las decisiones sobreviven a recargar la página 22ms
+ ✓ src/test/App.test.jsx > App · elevar el estado: el contador de pendientes vive en App > un plan aprobado aparece en el panel de ejecución del agente 14ms
+ ✓ src/test/Inbox.test.jsx > Inbox · decidir (las decisiones llegan por props) > aprobar un plan R2 exige el hash exacto 52ms
+ ✓ src/test/Inbox.test.jsx > Inbox · el buscador usa useDebounce > el campo muestra lo escrito al instante, pero la lista espera 300 ms 12ms
+ ✓ src/test/Inbox.test.jsx > Inbox · el buscador usa useDebounce > sin coincidencias muestra el estado vacío y Limpiar búsqueda devuelve la lista 11ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > sin planes aprobados no hay nada que ejecutar 4ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R1 aprobado se ejecuta y termina aplicado, sin confirmación extra 14ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > un plan R2 aprobado espera una última confirmación antes de aplicarse 19ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > Descartar vuelve al reposo sin aplicar nada 19ms
+ ✓ src/test/Inbox.test.jsx > Inbox · ejecución del agente con useAgentRun > si el agente falla, lo dice 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/useAgentRun.test.jsx > useAgentRun · limpieza al desmontar > al desmontar con una ejecución en curso aborta su señal
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/test/useAgentRun.test.jsx:215:28
+    213| 
+    214|     unmount();
+    215|     expect(signal.aborted).toBe(true);
+       |                            ^
+    216|   });
+    217| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 56 passed (57)
+   Start at  23:07:45
+   Duration  617ms (transform 72ms, setup 190ms, collect 158ms, tests 374ms, environment 635ms, prepare 158ms)
+
