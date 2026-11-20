@@ -4,11 +4,8 @@ const IDLE = { status: "idle", plan: null, result: null, error: null };
 
 export default function useAgentRun(runAgent) {
   const [run, setRun] = useState(IDLE);
-
-  if (!runAgent) {
-    return { ...IDLE, start: () => {}, approve: () => {}, reject: () => {} };
-  }
-
+  // FIX 4: no early return before the hooks. Every hook runs on every render in the same order;
+  // a missing runAgent is handled inside start() instead.
   const latest = useRef(IDLE);
   const controller = useRef(null);
 
@@ -19,6 +16,7 @@ export default function useAgentRun(runAgent) {
 
   const start = useCallback(
     (plan) => {
+      if (!runAgent) return;
       const { status } = latest.current;
       if (status === "running" || status === "awaiting_approval") return;
 
