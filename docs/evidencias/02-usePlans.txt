@@ -1,0 +1,21 @@
+
+ RUN  v3.2.7 /Users/nissidev/Proyectos/lab11-extra-empresariales
+
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > empieza en loading, sin planes ni error, y pide los planes al montar 5ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > al llegar los planes pasa a ready con los planes y sin error 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > si la petición falla pasa a error, con el error y sin planes 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · los tres estados > no pide los planes otra vez en cada dibujado 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > reload() vuelve a loading, pide otra vez y termina en ready con los planes nuevos 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > después de un error, reload() limpia el error y puede terminar bien 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · reload > reload mantiene la misma identidad entre dibujados 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si la primera FALLA tarde, el error viejo no pisa los planes nuevos 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > si cambia la función fetchPlans, la respuesta de la anterior se ignora 0ms
+ ✓ src/test/usePlans.test.jsx > usePlans · ignora la respuesta vieja (carrera de peticiones) > con StrictMode (como en desarrollo) el efecto corre dos veces y gana la respuesta de la segunda 1ms
+ ✓ src/test/usePlans.test.jsx > usePlans · desmontar > si la respuesta llega después de desmontar, no pasa nada 0ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  23:06:25
+   Duration  332ms (transform 15ms, setup 30ms, collect 11ms, tests 11ms, environment 93ms, prepare 26ms)
+
