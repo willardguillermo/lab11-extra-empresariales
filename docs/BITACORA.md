@@ -14,3 +14,4 @@ Conteo de pruebas (57 en total) después de cada paso. Comandos ejecutados desde
 | 2 · Parte 2: `usePlans` | feat(hooks): usePlans | 18 fallan · 39 pasan (usePlans 12/12) | 20 fallan · 37 pasan |
 | 3 · Parte 3: `useAgentRun` | feat(hooks): useAgentRun | **0 fallan · 57 pasan** (useAgentRun 18/18) | 20 fallan · 37 pasan |
 | 4 · IA fallo 1: `useDebounce` no limpia el temporizador al repetirse | fix(ai): fallo 1 | 0 fallan · 57 pasan | 15 fallan · 42 pasan |
+| 5 · IA fallo 2: `usePlans` se traga el error y se queda en loading | fix(ai): fallo 2 | 0 fallan · 57 pasan | 13 fallan · 44 pasan |

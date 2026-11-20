@@ -16,7 +16,10 @@ export default function usePlans(fetchPlans) {
         setStatus("ready");
       })
       .catch((err) => {
-        console.error("Error loading plans", err);
+        // FIX 2: a failed request must reach the "error" state, not stay in "loading" forever.
+        setPlans([]);
+        setError(err);
+        setStatus("error");
       });
   }, [fetchPlans, attempt]);
 
